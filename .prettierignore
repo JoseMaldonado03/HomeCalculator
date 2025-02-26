@@ -1,0 +1,13 @@
+.cache
+package.json
+package-lock.json
+public
+build
+node_modules
+graphql-types.ts
+*.png
+*.jpg
+*.jpeg
+public
+src/assets
+*.svg
