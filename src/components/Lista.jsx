@@ -1,7 +1,9 @@
+import { useContext } from 'react';
 import numeral from 'numeral';
 import { IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { ALT_COLOR } from '../colors';
+import { ItemContext } from '../context/ItemContext';
 
 const Container = styled.div`
   margin-top: 16px;
@@ -67,20 +69,22 @@ const Delete = styled.button`
   font-size: 24px;
 `;
 
-function Lista({ lista }) {
+function Lista() {
+  const { items, removeItem } = useContext(ItemContext);
+
   return (
     <Container>
-      {lista.map((i, index) => (
+      {items.map((i, index) => (
         <Item key={`lista-item-${i.title}`}>
           <Title>
             {index + 1}. {i.title}
           </Title>
           <Valores>
             <Division>
-              {numeral(i.precio).format('$ 0,0.00')} / {i.qtdPersonas} =
+              {numeral(i.precio).format('$ 0,0.00')} / {i.personas.length} =
             </Division>
-            <Valor>{numeral(i.precio / i.qtdPersonas).format('$ 0,0.00')}</Valor>
-            <Delete>
+            <Valor>{numeral(i.precio / i.personas.length).format('$ 0,0.00')}</Valor>
+            <Delete onClick={() => removeItem(index)}>
               <IoClose />
             </Delete>
           </Valores>

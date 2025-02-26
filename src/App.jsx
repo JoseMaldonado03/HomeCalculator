@@ -1,20 +1,12 @@
 import { useState, useEffect } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
-import Form from './components/Form';
-import Logo from './components/Logo';
-import Lista from './components/Lista';
+import HomePage from './pages/Home';
 import Splashscreen from './components/Splashscreen';
 import UserProvider from './context/UserContext';
+import ItemProvider from './context/ItemContext';
 
-import { BACKGROUND, TEXT_COLOR, LINK_COLOR } from './colors';
-
-const Container = styled.div`
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 16px;
-  font-size: 10px;
-`;
+import { BACKGROUND } from './colors';
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -28,20 +20,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-  const [lista, setLista] = useState([
-    {
-      title: 'Viaje al Brasil',
-      precio: 100000,
-      qtdPersonas: 3,
-    },
-    {
-      title: 'Luz',
-      precio: 170000,
-      qtdPersonas: 2,
-    },
-  ]);
-
-  const [cargando, setCargando] = useState(false);
+  const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
     setTimeout(() => setCargando(false), '2000');
@@ -52,14 +31,12 @@ function App() {
   }
 
   return (
-    <Container>
-      <UserProvider>
+    <UserProvider>
+      <ItemProvider>
         <GlobalStyle />
-        <Logo />
-        <Form lista={lista} setLista={setLista} />
-        <Lista lista={lista} jose="Chico mio" />
-      </UserProvider>
-    </Container>
+        <HomePage />
+      </ItemProvider>
+    </UserProvider>
   );
 }
 
